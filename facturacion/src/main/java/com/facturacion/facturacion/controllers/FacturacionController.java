@@ -17,9 +17,13 @@ public class FacturacionController {
     public FacturacionController(){
         facturas.add(new Factura(1, "Consulta General",LocalDate.parse("2025-03-20"),"Veterinaria Gatofeliz","20.435.399-9","Karel Espinoza","Gato","Mantequilla",14990 ));
         facturas.add(new Factura(2, "Vacunación Antirrábica", LocalDate.parse("2025-03-25"), "Veterinaria Gatofeliz","15.987.654-3", "Laura Martínez", "Perro", "Draco", 19990));
-        facturas.add(new Factura(3, "Desparasitación", LocalDate.parse("2025-04-02"), "Veterinaria Gatofeliz","18.456.789-5", "Carlos Núñez", "Gato", "Mishi", 12990));
-        facturas.add(new Factura(4, "Cirugía de esterilización", LocalDate.parse("2025-04-10"), "Veterinaria Gatofeliz","22.345.678-1", "Ana Gómez", "Conejo", "Bolita", 49990));
-        facturas.add(new Factura(5, "Consulta Dermatológica", LocalDate.parse("2025-04-15"), "Veterinaria Gatofeliz","25.678.901-2", "Javier Pérez", "Perro", "Stella", 24990));
+        facturas.add(new Factura(3, "Desparasitación", LocalDate.parse("2025-03-02"), "Veterinaria Gatofeliz","18.456.789-5", "Carlos Núñez", "Gato", "Mishi", 12990));
+        facturas.add(new Factura(4, "Cirugía de esterilización", LocalDate.parse("2025-03-10"), "Veterinaria Gatofeliz","19.345.678-1", "Ana Gómez", "Conejo", "Bolita", 49990));
+        facturas.add(new Factura(5, "Consulta Dermatológica", LocalDate.parse("2025-03-15"), "Veterinaria Gatofeliz","21.678.901-2", "Javier Pérez", "Perro", "Stella", 24990));
+        facturas.add(new Factura(6, "Radiografía", LocalDate.parse("2025-03-22"), "Veterinaria Gatofeliz","17.123.456-7", "Sofía Ramírez", "Gato", "Tom", 29990));
+        facturas.add(new Factura(7, "Consulta Oftalmológica", LocalDate.parse("2025-03-30"), "Veterinaria Gatofeliz","12.987.654-3", "Fernando López", "Perro", "Bobby", 21990));
+        facturas.add(new Factura(8, "Limpieza Dental", LocalDate.parse("2025-03-15"), "Veterinaria Gatofeliz","18.678.901-2", "Marcela Torres", "Hurón", "Chispa", 17990));
+
     }
 
     @GetMapping("/facturas")
