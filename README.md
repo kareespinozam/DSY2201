@@ -13,6 +13,9 @@ El propósito de este repositorio es mantener un registro de lo aprendido en la 
 - **Semana 1:** La estructura de un microservicio (Sólo teoría)
 - **Semana 2:** Microservicio Básico
 - **Semana 3:** La programación de los Microservicios básicos
+- **Semana 4:** El desarrollo de un Microservicio
+- **Semana 5:** Los componentes de comunicación y los microservicios
+- **Semana 6:** Los microservicios complejos
 
 ## 🚀 Tecnologías Utilizadas
 - Springboot
