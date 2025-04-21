@@ -3,41 +3,52 @@ package com.facturacion.facturacion.controllers;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
-import com.facturacion.facturacion.models.Factura;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.facturacion.facturacion.model.Factura;
+import com.facturacion.facturacion.service.FacturaService;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+
+
 @RestController
+@RequestMapping("/facturas")
 public class FacturacionController {
-    private List<Factura> facturas = new ArrayList<>();
+    @Autowired
+    private FacturaService facturaService;
 
-    public FacturacionController(){
-        facturas.add(new Factura(1, "Consulta General",LocalDate.parse("2025-03-20"),"Veterinaria Gatofeliz","20.435.399-9","Karel Espinoza","Gato","Mantequilla",14990 ));
-        facturas.add(new Factura(2, "Vacunación Antirrábica", LocalDate.parse("2025-03-25"), "Veterinaria Gatofeliz","15.987.654-3", "Laura Martínez", "Perro", "Draco", 19990));
-        facturas.add(new Factura(3, "Desparasitación", LocalDate.parse("2025-03-02"), "Veterinaria Gatofeliz","18.456.789-5", "Carlos Núñez", "Gato", "Mishi", 12990));
-        facturas.add(new Factura(4, "Cirugía de esterilización", LocalDate.parse("2025-03-10"), "Veterinaria Gatofeliz","19.345.678-1", "Ana Gómez", "Conejo", "Bolita", 49990));
-        facturas.add(new Factura(5, "Consulta Dermatológica", LocalDate.parse("2025-03-15"), "Veterinaria Gatofeliz","21.678.901-2", "Javier Pérez", "Perro", "Stella", 24990));
-        facturas.add(new Factura(6, "Radiografía", LocalDate.parse("2025-03-22"), "Veterinaria Gatofeliz","17.123.456-7", "Sofía Ramírez", "Gato", "Tom", 29990));
-        facturas.add(new Factura(7, "Consulta Oftalmológica", LocalDate.parse("2025-03-30"), "Veterinaria Gatofeliz","12.987.654-3", "Fernando López", "Perro", "Bobby", 21990));
-        facturas.add(new Factura(8, "Limpieza Dental", LocalDate.parse("2025-03-15"), "Veterinaria Gatofeliz","18.678.901-2", "Marcela Torres", "Hurón", "Chispa", 17990));
-
+    @GetMapping
+    public List<Factura> getAllFacturas(){
+        return facturaService.getAllFacturas();
+    }
+    
+    @GetMapping("/{id}")
+    public Optional<Factura> getStudentsById(@PathVariable Long id){
+        return facturaService.getFacturaByID(id);
+    }
+    //CRUD
+    @PostMapping
+    public Factura createFactura(@RequestBody Factura factura){
+        return facturaService.createFactura(factura);
     }
 
-    @GetMapping("/facturas")
-    public List<Factura> getFacturas(){
-        return facturas;
+    @PutMapping("/{id}")
+    public Factura updateFactura(@PathVariable Long id, @RequestBody Factura factura) {
+        return facturaService.updateFactura(id, factura);
     }
 
-    @GetMapping("/facturas/{id_factura}")
-    public Factura getFacturaById(@PathVariable int id_factura){
-        for (Factura f : facturas){
-            if (f.getId_factura()== id_factura){
-                return f;
-            }
-        }
-        return null;
+    @DeleteMapping("/{id}")
+    public void deleteFactura(@PathVariable Long id){
+        facturaService.deleteFactura(id);
     }
 }
