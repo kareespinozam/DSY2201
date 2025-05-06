@@ -1,6 +1,8 @@
 package com.eventos.eventos.model;
 import java.time.LocalDate;
 
+import org.springframework.hateoas.RepresentationModel;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,7 +12,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name="eventos")
-public class Evento {
+public class Evento extends RepresentationModel<Evento> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id_evento")

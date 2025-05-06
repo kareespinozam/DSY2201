@@ -1,6 +1,8 @@
 package com.facturacion.facturacion.model;
 import java.time.LocalDate;
 
+import org.springframework.hateoas.RepresentationModel;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,7 +12,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name="facturas")
-public class Factura {
+public class Factura  extends RepresentationModel<Factura>{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="ID_FACTURA")
@@ -32,17 +34,6 @@ public class Factura {
     @Column(name="precio")
     private int precio;
 
-    // public Factura(Long id_factura, String servicio, LocalDate fecha, String emisor,String rut_cliente,String nombre_cliente,String tipo_mascota,String nombre_mascota,int precio){
-    //     this.id_factura = id_factura;
-    //     this.servicio = servicio;
-    //     this.fecha = fecha;
-    //     this.emisor = emisor;
-    //     this.rut_cliente = rut_cliente;
-    //     this.nombre_cliente = nombre_cliente;
-    //     this.tipo_mascota = tipo_mascota;
-    //     this.nombre_mascota = nombre_mascota;
-    //     this.precio = precio;
-    // }
     public Factura() {
     
     }
