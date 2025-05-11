@@ -29,4 +29,20 @@ public class EventoRepositoryTest {
         assertEquals("Competencia de Agility Canino",resultado.getEvento());
     }
     // Otras pruebas
+
+     @Test
+    public void actualizarEventoTest() {
+        // Arrange
+        Evento evento = new Evento();
+        evento.setEvento("Feria de insectos");
+        Evento eventoGuardada = eventoRepository.save(evento); // Guardar
+
+        // Act
+        eventoGuardada.setEvento("Carrera de cuyis"); // Update
+        Evento eventoActualizada = eventoRepository.save(eventoGuardada); 
+
+        // Assert
+        assertEquals(eventoGuardada.getId_evento(), eventoActualizada.getId_evento());
+        assertEquals("Carrera de cuyis", eventoActualizada.getEvento());
+    }
 }

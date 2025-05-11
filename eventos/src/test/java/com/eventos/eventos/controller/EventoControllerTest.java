@@ -3,6 +3,7 @@ package com.eventos.eventos.controller;
 import static org.mockito.Mockito.when;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Arrays;
 
 import org.hamcrest.Matchers;
@@ -48,5 +49,21 @@ public class EventoControllerTest {
                 );
 
     }
-
+    @Test
+    public void obtenerPorID() throws Exception {
+        // Arrange
+        Long idBuscado = 1L;
+        Evento evento = new Evento();
+        evento.setId_evento(idBuscado);
+        evento.setEvento("Competencia de salto de ardillas");
+        
+        // Mockeamos el servicio para devolver un Optional con la evento
+        when(eventoServicioMock.getEventoByID(idBuscado)).thenReturn(Optional.of(evento));
+        
+        // Act & Assert
+        mockMvc.perform(MockMvcRequestBuilders.get("/eventos/{id}", idBuscado))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id_evento", Matchers.is(1)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.evento", Matchers.is("Competencia de salto de ardillas")));
+    }
 }

@@ -3,6 +3,7 @@ package com.facturacion.facturacion.controller;
 import static org.mockito.Mockito.when;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Arrays;
 
 import org.hamcrest.Matchers;
@@ -25,28 +26,44 @@ public class FacturaControllerTest {
 
     @SuppressWarnings("removal")
     @MockBean
-    private FacturaServicelmpl eventoServicioMock;
+    private FacturaServicelmpl facturaServicioMock;
 
     @Test
     public void obetenerTodosTest() throws Exception{
         // Arrange
-        Factura evento1 = new Factura();
-        evento1.setPrecio(19990);
-        evento1.setId_factura(1L);
-        Factura evento2 = new Factura();
-        evento2.setPrecio(69420);
-        evento2.setId_factura(2L);
-        List<Factura> facturacion = Arrays.asList(evento1,evento2);
-        when(eventoServicioMock.getAllFacturas()).thenReturn(facturacion);
+        Factura factura1 = new Factura();
+        factura1.setPrecio(19990);
+        factura1.setId_factura(1L);
+        Factura factura2 = new Factura();
+        factura2.setPrecio(69420);
+        factura2.setId_factura(2L);
+        List<Factura> facturacion = Arrays.asList(factura1,factura2);
+        when(facturaServicioMock.getAllFacturas()).thenReturn(facturacion);
         
         //Act & Assert
-        mockMvc.perform(MockMvcRequestBuilders.get("/facturacion"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/facturas"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$",Matchers.aMapWithSize(2)))
-                .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.eventoList[0].evento",Matchers.is(19990)))
-                .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.eventoList[1].evento",Matchers.is(69420))
+                .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.facturaList[0].precio",Matchers.is(19990)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.facturaList[1].precio",Matchers.is(69420))
                 );
 
     }
-
+    @Test
+    public void obtenerPorID() throws Exception {
+        // Arrange
+        Long idBuscado = 1L;
+        Factura factura = new Factura();
+        factura.setId_factura(idBuscado);
+        factura.setPrecio(19990);
+        
+        // Mockeamos el servicio para devolver un Optional con la factura
+        when(facturaServicioMock.getFacturaByID(idBuscado)).thenReturn(Optional.of(factura));
+        
+        // Act & Assert
+        mockMvc.perform(MockMvcRequestBuilders.get("/facturas/{id}", idBuscado))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id_factura", Matchers.is(1)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.precio", Matchers.is(19990)));
+    }
 }
